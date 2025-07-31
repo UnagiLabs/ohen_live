@@ -115,12 +115,14 @@ export default function MainPage() {
 			<header className="p-4 flex items-center justify-between" style={{ backgroundColor: "#FFB3BF" }}>
 				<div className="flex items-center gap-8">
 					<div className="flex items-center gap-4">
-						<Image
-							src="/OH! EN.png"
-							alt="OH EN Logo"
-							width={120}
-							height={60}
-						/>
+						<a href="/" className="cursor-pointer">
+							<Image
+								src="/OH! EN.png"
+								alt="OH EN Logo"
+								width={120}
+								height={60}
+							/>
+						</a>
 						<h1 className="text-2xl font-bold text-gray-800" style={{ fontFamily: 'Comic Sans MS, cursive' }}>
 							OH!EN LIVE
 						</h1>
