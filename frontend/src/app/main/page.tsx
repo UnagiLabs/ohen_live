@@ -146,7 +146,7 @@ export default function MainPage() {
 								fontFamily: 'Comic Sans MS, cursive'
 							}}
 						>
-							四季Board
+							Leaderboard
 						</a>
 						<a 
 							href="/mypage" 
@@ -218,46 +218,64 @@ export default function MainPage() {
 
 					{/* 配信一覧 */}
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-						{mockStreams[selectedGenre].map((stream) => (
-							<div
-								key={stream.id}
-								className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer"
-							>
-								<div className="relative">
-									<Image
-										src={stream.thumbnail}
-										alt={stream.title}
-										width={400}
-										height={225}
-										className="w-full h-48 object-cover"
-									/>
-									{stream.isLive && (
-										<div className="absolute top-2 left-2 px-2 py-1 bg-red-500 text-white text-sm font-bold rounded">
-											LIVE
+						{mockStreams[selectedGenre].map((stream) => {
+							// さくらちゃんの場合はストリーマーページへリンク
+							const isClickable = stream.streamer === "Sakura 桜";
+							const linkPath = isClickable ? "/streamer/sakura" : "#";
+							
+							const CardContent = (
+								<>
+									<div className="relative">
+										<Image
+											src={stream.thumbnail}
+											alt={stream.title}
+											width={400}
+											height={225}
+											className="w-full h-48 object-cover"
+										/>
+										{stream.isLive && (
+											<div className="absolute top-2 left-2 px-2 py-1 bg-red-500 text-white text-sm font-bold rounded z-10">
+												LIVE
+											</div>
+										)}
+										<div className="absolute bottom-2 right-2 px-2 py-1 bg-black bg-opacity-70 text-white text-sm rounded">
+											👥 {stream.viewers.toLocaleString()}
 										</div>
-									)}
-									<div className="absolute bottom-2 right-2 px-2 py-1 bg-black bg-opacity-70 text-white text-sm rounded">
-										👥 {stream.viewers.toLocaleString()}
+										{isClickable && (
+											<div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 opacity-0 hover:opacity-100 transition-opacity bg-white bg-opacity-90 px-3 py-1 rounded-full z-10">
+												<span className="text-purple-600 font-bold text-sm">Click for OHEN PASS!</span>
+											</div>
+										)}
 									</div>
-								</div>
-								<div className="p-4">
-									<h3 className="font-bold text-lg mb-2 line-clamp-2" style={{ fontFamily: 'Comic Sans MS, cursive' }}>
-										{stream.title}
-									</h3>
-									<p className="text-gray-600" style={{ fontFamily: 'Comic Sans MS, cursive' }}>
-										{stream.streamer}
-									</p>
-									<div className="mt-3 flex gap-2">
-										<button className="px-3 py-1 text-sm rounded-full text-white" style={{ backgroundColor: "#FFB3BF" }}>
-											Support
-										</button>
-										<button className="px-3 py-1 text-sm rounded-full text-white" style={{ backgroundColor: "#E8D3F3" }}>
-											Send 花
-										</button>
+									<div className="p-4">
+										<h3 className="font-bold text-lg mb-2 line-clamp-2" style={{ fontFamily: 'Comic Sans MS, cursive' }}>
+											{stream.title}
+										</h3>
+										<p className="text-gray-600" style={{ fontFamily: 'Comic Sans MS, cursive' }}>
+											{stream.streamer}
+										</p>
+										<div className="mt-3 flex gap-2">
+											<button className="px-3 py-1 text-sm rounded-full text-white" style={{ backgroundColor: "#FFB3BF" }}>
+												Support
+											</button>
+											<button className="px-3 py-1 text-sm rounded-full text-white" style={{ backgroundColor: "#E8D3F3" }}>
+												Send 花
+											</button>
+										</div>
 									</div>
+								</>
+							);
+
+							return isClickable ? (
+								<a key={stream.id} href={linkPath} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer block">
+									{CardContent}
+								</a>
+							) : (
+								<div key={stream.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-default">
+									{CardContent}
 								</div>
-							</div>
-						))}
+							);
+						})}
 					</div>
 				</div>
 			</main>

@@ -133,7 +133,7 @@ export default function MyPage() {
 								fontFamily: 'Comic Sans MS, cursive'
 							}}
 						>
-							四季Board
+							Leaderboard
 						</a>
 						<a 
 							href="/mypage" 
