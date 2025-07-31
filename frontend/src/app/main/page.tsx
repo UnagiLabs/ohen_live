@@ -94,27 +94,94 @@ const mockStreams: { [key: string]: StreamData[] } = {
 
 export default function MainPage() {
 	const [selectedGenre, setSelectedGenre] = useState<string>("Vlog");
+	const [isWalletConnected, setIsWalletConnected] = useState(false);
+	const [walletAddress, setWalletAddress] = useState<string>("");
 	const genres = ["Vlog", "Vtuber", "Music"];
+
+	const connectWallet = async () => {
+		// モックのウォレット接続処理
+		setIsWalletConnected(true);
+		setWalletAddress("0x1234...5678");
+	};
+
+	const disconnectWallet = () => {
+		setIsWalletConnected(false);
+		setWalletAddress("");
+	};
 
 	return (
 		<div className="min-h-screen" style={{ backgroundColor: "#FFFAD1" }}>
 			{/* ヘッダー */}
 			<header className="p-4 flex items-center justify-between" style={{ backgroundColor: "#FFB3BF" }}>
-				<div className="flex items-center gap-4">
-					<Image
-						src="/OH! EN.png"
-						alt="OH EN Logo"
-						width={120}
-						height={60}
-					/>
-					<h1 className="text-2xl font-bold text-gray-800" style={{ fontFamily: 'Comic Sans MS, cursive' }}>
-						OH!EN LIVE
-					</h1>
+				<div className="flex items-center gap-8">
+					<div className="flex items-center gap-4">
+						<Image
+							src="/OH! EN.png"
+							alt="OH EN Logo"
+							width={120}
+							height={60}
+						/>
+						<h1 className="text-2xl font-bold text-gray-800" style={{ fontFamily: 'Comic Sans MS, cursive' }}>
+							OH!EN LIVE
+						</h1>
+					</div>
+					
+					{/* メインメニュー */}
+					<nav className="hidden md:flex gap-6">
+						<a 
+							href="/main" 
+							className="px-4 py-2 rounded-full text-gray-800 font-semibold hover:text-white hover:shadow-md transition-all"
+							style={{ 
+								backgroundColor: "#FFFFFF",
+								fontFamily: 'Comic Sans MS, cursive'
+							}}
+						>
+							Home
+						</a>
+						<a 
+							href="/board" 
+							className="px-4 py-2 rounded-full text-gray-800 font-semibold hover:text-white hover:shadow-md transition-all"
+							style={{ 
+								backgroundColor: "#FFFFFF",
+								fontFamily: 'Comic Sans MS, cursive'
+							}}
+						>
+							四季Board
+						</a>
+						<a 
+							href="/mypage" 
+							className="px-4 py-2 rounded-full text-gray-800 font-semibold hover:text-white hover:shadow-md transition-all"
+							style={{ 
+								backgroundColor: "#FFFFFF",
+								fontFamily: 'Comic Sans MS, cursive'
+							}}
+						>
+							My page
+						</a>
+					</nav>
 				</div>
-				<div className="flex gap-4">
-					<button className="px-4 py-2 rounded-full text-white font-semibold" style={{ backgroundColor: "#E8D3F3" }}>
-						Login
-					</button>
+				<div className="flex gap-4 items-center">
+					{!isWalletConnected ? (
+						<button 
+							onClick={connectWallet}
+							className="px-4 py-2 rounded-full text-white font-semibold hover:shadow-lg transition-all" 
+							style={{ backgroundColor: "#E8D3F3" }}
+						>
+							Connect Wallet
+						</button>
+					) : (
+						<div className="flex items-center gap-2">
+							<div className="px-3 py-2 rounded-full text-white font-semibold" style={{ backgroundColor: "#4CAF50" }}>
+								<span className="text-sm">{walletAddress}</span>
+							</div>
+							<button 
+								onClick={disconnectWallet}
+								className="px-3 py-1 rounded-full text-gray-600 hover:text-gray-800 text-sm"
+							>
+								Disconnect
+							</button>
+						</div>
+					)}
 				</div>
 			</header>
 
@@ -122,10 +189,10 @@ export default function MainPage() {
 			<main className="p-6">
 				<div className="max-w-7xl mx-auto">
 					<h2 className="text-3xl font-bold text-gray-800 mb-8 text-center" style={{ fontFamily: 'Comic Sans MS, cursive' }}>
-						Support blooms with the seasons 四季
+						Together we cheer. Together you earn.
 					</h2>
 					<p className="text-lg text-gray-600 mb-8 text-center" style={{ fontFamily: 'Comic Sans MS, cursive' }}>
-						Where fans' "light 灯" becomes creators' "star rank 星位" in our live community
+						Where fans' "light 灯" becomes creators' "star 星" in our live community
 					</p>
 
 					{/* ジャンル選択 */}
