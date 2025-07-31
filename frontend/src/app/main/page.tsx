@@ -25,7 +25,7 @@ const mockStreams: { [key: string]: StreamData[] } = {
 			id: "2", 
 			title: "Cafe Hopping Adventure ☕",
 			streamer: "Mai 舞",
-			thumbnail: "/phone.png",
+			thumbnail: "/piano2.png",
 			viewers: 567,
 			isLive: true,
 		},
